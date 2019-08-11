@@ -1,0 +1,23 @@
+@import './_reset.scss';
+
+html, body{
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+
+#root {
+  min-height: 100%;
+}
+
+.m-app{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: url(../img/img.jpg) 100% 100% no-repeat;
+  background-size: cover;
+
+  color: #fff;
+  font-size: 100px;
+}
