@@ -35,6 +35,10 @@ module.exports = {
         }
       }
     }, {
+      test: /\.tsx?$/,
+      use: ['babel-loader', 'awesome-typescript-loader?silent=true'],
+      exclude: /node_modules/
+    }, {
       test: /\.scss$/,
       use: [ isProd ? MiniCssExtractPlugin.loader : 'style-loader',
         'css-loader',
@@ -100,7 +104,7 @@ module.exports = {
   },
   context: path.resolve(__dirname, '../'),
   resolve: {
-    extensions: ['.jsx', '.js', '.json'],
+    extensions: ['.ts', '.tsx', '.js', '.json'],
     modules: [
       'src',
       'node_modules'

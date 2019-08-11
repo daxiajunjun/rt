@@ -11,6 +11,9 @@
   "author": "wangjunjun",
   "license": "ISC",
   "dependencies": {
+    "@types/react": "^16.9.1",
+    "@types/react-dom": "^16.8.5",
+    "awesome-typescript-loader": "^5.2.1",
     "classname": "^0.0.0",
     "hoist-non-react-statics": "^3.3.0",
     "koa": "^2.7.0",
@@ -23,7 +26,8 @@
     "mustache": "^3.0.1",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
-    "rxjs": "^6.5.2"
+    "rxjs": "^6.5.2",
+    "typescript": "^3.5.3"
   },
   "devDependencies": {
     "@babel/cli": "^7.5.5",
