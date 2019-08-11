@@ -17,7 +17,7 @@ function getFilePath (files, basePath) {
 
 module.exports = {
   entry: {
-    index: './web/src/index.js'
+    index: './web/src/index.tsx'
   },
   output: {
     path: path.resolve(__dirname, '../build/client'),

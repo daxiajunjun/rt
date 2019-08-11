@@ -10,6 +10,6 @@ webpackCompiler.run((err, stats) => {
   }
   if (stats.hasErrors()) {
     const info = stats.toJson();
-    console.error(info.errors);
+    console.error(info.errors[0]);
   }
 });

@@ -13,7 +13,7 @@ module.exports = {
     "sourceType": "module"
   },
   "plugins": [
-    "react", "standard", "promise"
+    "standard"
   ],
   "rules": {
     "indent": [
@@ -27,8 +27,6 @@ module.exports = {
     ],
     "semi": [
       "error", "always"
-    ],
-    "react/jsx-uses-vars": "error",
-    "react/jsx-uses-react": "error"
+    ]
   }
 };
