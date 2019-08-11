@@ -1,0 +1,9 @@
+@import './_sprite.scss';
+
+.facebook{ 
+    @include sprite($facebook);
+}
+
+.twitter{ 
+    @include sprite($twitter);
+}

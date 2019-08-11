@@ -7,6 +7,7 @@ const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const ManifestPlugin = require('webpack-manifest-plugin');
 const WebpackBar = require('webpackbar');
 const TerserPlugin = require('terser-webpack-plugin');
+const SpritesmithPlugin = require('webpack-spritesmith');
 
 const isProd = process.env.NODE_ENV === 'production';
 
@@ -39,33 +40,57 @@ module.exports = {
         'css-loader',
         'sass-loader']
     }, {
-      test: /\.(png|jpe?g|gif|bmp)$/,
-      use: {
+      test: /\.(jpe?g|gif|bmp)$/,
+      use: [{
         loader: 'url-loader',
         options: {
           limit: 8192,
           name: 'images/[name]_[hash:8].[ext]'
         }
-      }
+      },
+      'image-webpack-loader?bypassOnDebug&optipng.optimizationLevel=7&gifsicle.interlaced=false'
+      ]
+    }, {
+      test: /\.png$/,
+      use: [
+        'file-loader?name=images/[name]_[hash:8].[ext]' // 使用 file-loader 对 png 图标进行设置
+      ]
     }]
   },
   plugins: [
+    isProd ? new CleanWebpackPlugin() : '',
     new HtmlWebpackPlugin({
       template: 'web/public/index.html',
       minify: !!isProd
     }),
-    isProd ? new MiniCssExtractPlugin({
-      filename: 'css/[name].[chunkhash:8].css',
-      chunkFilename: 'css/[name].[chunkhash:8].css'
-    }) : '',
-    isProd ? new OptimizeCssAssetsPlugin() : '',
+    new SpritesmithPlugin({
+      src: {
+        cwd: path.resolve(__dirname, '../web/static/icon/'),
+        glob: '*.png'
+      },
+      target: {
+        image: path.resolve(__dirname, '../web/static/img/sprites.png'),
+        css: path.resolve(__dirname, '../web/static/scss/_sprite.scss')
+      },
+      apiOptions: {
+        cssImageRef: '../img/sprites.png'
+      },
+      spritesmithOptions: {
+        padding: 4
+      }
+    }),
     new WebpackBar({
       color: '#1151fe',
       name: 'client'
     }),
-    isProd ? new CleanWebpackPlugin() : '',
+    isProd ? new OptimizeCssAssetsPlugin() : '',
+    isProd ? new MiniCssExtractPlugin({
+      filename: 'css/[name].[chunkhash:8].css',
+      chunkFilename: 'css/[name].[chunkhash:8].css'
+    }) : '',
     isProd ? new ManifestPlugin() : ''
   ].filter(Boolean),
+
   devtool: isProd ? '' : 'source-map',
   devServer: {
     hot: true,
