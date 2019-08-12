@@ -1,0 +1,5 @@
+$baseDesignWidth: 750;
+
+@function p($val) {
+  @return ($val / $baseDesignWidth) * 1rem;
+}

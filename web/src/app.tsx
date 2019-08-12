@@ -15,10 +15,10 @@ export default class App extends React.Component<IAppProps> {
     return (
       <div className='m-app'>
         <Layout/>
-
-        <Route path='/home' exact component={Home} />
-        <Route path='/welcome' component={Welcome} />
-        <Redirect exact from="/" to="home" />
+        <div className='m-container'>
+          <Route path='/home' exact component={Home} />
+          <Route path='/welcome' component={Welcome} />
+        </div>
       </div>
     );
   }

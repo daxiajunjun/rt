@@ -1,6 +1,6 @@
+@import '../../../static/scss/_functions';
 .menu {
-  font-size: 24px;
-  margin-right: 20px;
+  font-size: p(48);
   .menu-item{
     list-style: none;
     a{

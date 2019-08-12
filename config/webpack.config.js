@@ -20,7 +20,7 @@ module.exports = {
     index: './web/src/index.tsx'
   },
   output: {
-    path: path.resolve(__dirname, '../build/client'),
+    path: isProd ? '/web' : path.resolve(__dirname, '../build/client'),
     filename: 'js/[name].[hash:8].js',
     publicPath: '/'
   },
@@ -65,7 +65,8 @@ module.exports = {
     isProd ? new CleanWebpackPlugin() : '',
     new HtmlWebpackPlugin({
       template: 'web/public/index.html',
-      minify: !!isProd
+      minify: !!isProd,
+      output: isProd ? '' : '/web'
     }),
     new SpritesmithPlugin({
       src: {

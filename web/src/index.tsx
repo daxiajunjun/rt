@@ -1,15 +1,15 @@
 import * as React from 'react';
 import * as ReactDom from 'react-dom';
-import { BrowserRouter } from 'react-router-dom';
+import { HashRouter } from 'react-router-dom';
 
 import App from './app';
 
 
 const RouterApp = () => {
   return (
-    <BrowserRouter>
+    <HashRouter>
       <App/>
-    </BrowserRouter>
+    </HashRouter>
   )
 }
 
