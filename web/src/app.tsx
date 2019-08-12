@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Route, Link } from 'react-router-dom'
+import { Route, Redirect } from 'react-router-dom'
 
 import Welcome from './container/welcome/index';
 import Home from './container/home/index';
@@ -18,6 +18,7 @@ export default class App extends React.Component<IAppProps> {
 
         <Route path='/home' exact component={Home} />
         <Route path='/welcome' component={Welcome} />
+        <Redirect exact from="/" to="home" />
       </div>
     );
   }
