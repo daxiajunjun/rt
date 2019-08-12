@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { Link } from 'react-router-dom'
 
 import './index.scss';
 
@@ -10,10 +9,10 @@ const Layout: React.FunctionComponent<IAppProps> = (props) => {
   return (
     <ul className="menu">
       <li className="menu-item">
-        <Link to='/home'>home</Link>
+        menu1
       </li>
       <li className="menu-item">
-      <Link to='/welcome'>welcome</Link>
+        menu2
       </li>
     </ul>
   )
