@@ -1,0 +1,58 @@
+{
+  "appenders": {
+    "console": {
+      "type": "console",
+      "level": "warn"
+    },
+    "app": {
+      "type": "dateFile",
+      "filename": "logs/app",
+      "pattern": "-yyyy-MM-dd.log",
+      "alwaysIncludePattern": true
+    },
+    "http": {
+      "type": "dateFile",
+      "filename": "logs/http",
+      "pattern": "-yyyy-MM-dd.log",
+      "alwaysIncludePattern": true
+    },
+    "error": {
+      "type": "dateFile",
+      "filename": "logs/error",
+      "pattern": "-yyyy-MM-dd.log",
+      "alwaysIncludePattern": true
+    }
+  },
+  "categories": {
+    "default": {
+      "appenders": [
+        "console"
+      ],
+      "level": "all"
+    },
+    "console": {
+      "appenders": [
+        "console"
+      ],
+      "level": "all"
+    },
+    "app": {
+      "appenders": [
+        "app"
+      ],
+      "level": "all"
+    },
+    "http": {
+      "appenders": [
+        "http"
+      ],
+      "level": "info"
+    },
+    "error": {
+      "appenders": [
+        "error"
+      ],
+      "level": "error"
+    }
+  }
+}

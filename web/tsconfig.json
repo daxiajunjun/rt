@@ -4,12 +4,12 @@
       "sourceMap": true,
       "noImplicitAny": false,
       "module": "commonjs",
-      "target": "es5",
+      "target": "ES2016",
       "jsx": "react",
-      "lib": ["es5", "es6", "dom"]
+      "lib": ["es2015", "dom", "es2017", "es2016"]
   },
   "include": [
-      "./web/src/**/*"
+      "./web/src/**/*", "web/src/declarations.d.ts"
   ],
   "awesomeTypescriptLoaderOptions": {
       "reportFiles": [

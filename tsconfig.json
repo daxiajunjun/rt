@@ -3,13 +3,13 @@
       "outDir": "./dist/",
       "sourceMap": true,
       "noImplicitAny": false,
-      "module": "es2015",
-      "target": "ES2015",
+      "module": "commonjs",
+      "target": "ES2016",
       "jsx": "react",
-      "lib": ["es2015", "dom", "es2015.symbol"]
+      "lib": ["es2015", "dom", "es2017", "es2016"]
   },
   "include": [
-      "./web/src/**/*"
+      "./web/src/**/*", "web/src/declarations.d.ts"
   ],
   "awesomeTypescriptLoaderOptions": {
       "reportFiles": [

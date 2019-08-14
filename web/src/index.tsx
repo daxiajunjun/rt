@@ -11,7 +11,7 @@ const RouterApp = () => {
 }
 
 
-ReactDom.render(<RouterApp />, document.querySelector('#root'));
+ReactDom.hydrate(<RouterApp />, document.querySelector('#root'));
 
 if (module.hot) {
   module.hot.accept()

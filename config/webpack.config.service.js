@@ -1,28 +1,26 @@
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
 const path = require('path');
-const ip = require('ip');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
-const ManifestPlugin = require('webpack-manifest-plugin');
 const WebpackBar = require('webpackbar');
 const TerserPlugin = require('terser-webpack-plugin');
-const SpritesmithPlugin = require('webpack-spritesmith');
-
+const nodeExternals = require('webpack-node-externals');
 const isProd = process.env.NODE_ENV === 'production';
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const webpack = require('webpack');
 
 function getFilePath (files, basePath) {
   return files.map(file => path.resolve(basePath, file));
 }
 
 module.exports = {
+  target: 'node',
   entry: {
-    index: './web/src/index.tsx'
+    app: './web/src/app.tsx'
   },
   output: {
-    path: isProd ? path.resolve(__dirname, '../build/client') : path.resolve(__dirname, '../web') ,
-    filename: 'js/[name].[hash:8].js',
-    publicPath: '/'
+    path: isProd ? path.resolve(__dirname, '../build/service') : path.resolve(__dirname, '../service/_view'),
+    filename: 'js/[name].js',
+    publicPath: '/',
+    libraryTarget: 'commonjs2'
   },
   module: {
     rules: [{
@@ -36,11 +34,11 @@ module.exports = {
       }
     }, {
       test: /\.tsx?$/,
-      use: ['babel-loader', 'awesome-typescript-loader'],
+      use: ['babel-loader','awesome-typescript-loader'],
       exclude: /node_modules/
     }, {
       test: /\.scss$/,
-      use: [ isProd ? MiniCssExtractPlugin.loader : 'style-loader',
+      use: [ 'isomorphic-style-loader',
         'css-loader',
         'sass-loader']
     }, {
@@ -63,46 +61,17 @@ module.exports = {
   },
   plugins: [
     isProd ? new CleanWebpackPlugin() : '',
+    new WebpackBar({
+      color: '#0de7f1',
+      name: 'service'
+    }),
+    isProd ? '' : new webpack.HotModuleReplacementPlugin(),
     new HtmlWebpackPlugin({
       template: 'web/public/index.html',
-      minify: !!isProd,
-      output: isProd ? '' : 'web'
-    }),
-    new SpritesmithPlugin({
-      src: {
-        cwd: path.resolve(__dirname, '../web/static/icon/'),
-        glob: '*.png'
-      },
-      target: {
-        image: path.resolve(__dirname, '../web/static/img/sprites.png'),
-        css: path.resolve(__dirname, '../web/static/scss/_sprite.scss')
-      },
-      apiOptions: {
-        cssImageRef: '../img/sprites.png'
-      },
-      spritesmithOptions: {
-        padding: 4
-      }
-    }),
-    new WebpackBar({
-      color: '#1151fe',
-      name: 'client'
-    }),
-    isProd ? new OptimizeCssAssetsPlugin() : '',
-    isProd ? new MiniCssExtractPlugin({
-      filename: 'css/[name].[chunkhash:8].css',
-      chunkFilename: 'css/[name].[chunkhash:8].css'
-    }) : '',
-    isProd ? new ManifestPlugin() : ''
+      minify: !!isProd
+    })
   ].filter(Boolean),
 
-  devtool: isProd ? '' : 'source-map',
-  devServer: {
-    hot: true,
-    port: 8000,
-    host: ip.address(),
-    open: true
-  },
   context: path.resolve(__dirname, '../'),
   resolve: {
     extensions: ['.ts', '.tsx', '.js', '.json'],
@@ -136,5 +105,6 @@ module.exports = {
       }
     }
   },
-  mode: isProd ? 'production' : 'development'
+  mode: isProd ? 'production' : 'development',
+  externals: [nodeExternals()]
 };
