@@ -1,7 +1,7 @@
 import * as React from 'react';
 import StyleContext from 'isomorphic-style-loader/StyleContext';
 
-export default (App: any) => {
+export default (Component: any) => {
   const css = new Set(); // CSS for all rendered React components
   const insertCss = (...styles: any) => {
     styles.forEach((style: any) => {
@@ -10,7 +10,7 @@ export default (App: any) => {
   };
 
   <StyleContext.Provider value={{ insertCss }}>
-    <App />
+    <Component />
   </StyleContext.Provider>
 
   return function () {
